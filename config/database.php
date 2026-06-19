@@ -1,13 +1,14 @@
 <?php
 
     $host = 'localhost';
+    $port = 3307;
     $dbname = 'workspace';
     $user = 'root';
     $password = '';
 
     try {
         $pdo = new PDO(
-            "mysql:host=$host;dbname=$dbname;charset=utf8",
+            "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",
             $user,
             $password
         );

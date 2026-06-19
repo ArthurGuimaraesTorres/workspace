@@ -1,4 +1,7 @@
-<?php require_once __DIR__ . '/../../../header.php'; ?>
+<?php
+    $hideNavbar = true;
+    require __DIR__ ."/../../../header.php";
+?>
 
 <div class="container mt-5">
     <h1>Cadastro</h1>
@@ -16,7 +19,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Email</label>
+            <label class="form-label">E-mail</label>
             <input type="email" name="email" class="form-control" required>
         </div>
 
@@ -30,4 +33,4 @@
     </form>
 </div>
 
-<?php require_once __DIR__ . '/../../../footer.php'; ?>
+<?php require __DIR__ . '/../../../footer.php'; ?>

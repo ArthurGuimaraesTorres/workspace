@@ -6,31 +6,49 @@
 
     $page = $_GET['page'] ?? 'home';
 
-    if ($page === 'login') {
-        $authController->showLogin();
-    } elseif ($page === 'register') {
-        $authController->showRegister();
-    } elseif ($page === 'login-post' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-        $authController->login();
-    } elseif ($page === 'register-post' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-        $authController->register();
-    } elseif ($page === 'logout') {
-        $authController->logout();
-    } else {
-        require __DIR__ . '/../header.php';
+    switch ($page) {
+        case 'home':
+            require __DIR__ . '/../app/views/home.php';
+            break;
 
-        echo '<div class="container mt-5">';
-        echo '<h1>Home</h1>';
+        case 'dashboard':
+            if (!isset($_SESSION['user_id'])) {
+                header('Location: ?page=login');
+                exit;
+            }
 
-        if (isset($_SESSION['user_id'])) {
-            echo '<p>Olá, ' . htmlspecialchars($_SESSION['user_name']) . '</p>';
-            echo '<a href="?page=logout" class="btn btn-danger">Sair</a>';
-        } else {
-            echo '<a href="?page=login" class="btn btn-primary">Entrar</a>';
-            echo '<a href="?page=register" class="btn btn-outline-primary">Cadastrar</a>';
-        }
+            require __DIR__ . '/../app/views/dashboard.php';
+            break;
+            
+        case 'perfil':
+            if (!isset($_SESSION['user_id'])) {
+                header('Location: ?page=login');
+                exit;
+            }
 
-        echo '</div>';
+            require __DIR__ . '/../app/views/perfil.php';
+            break;
 
-        require __DIR__ . '/../footer.php';
+        case 'login':
+            $authController->showLogin();
+            break;
+
+        case 'register':
+            $authController->showRegister();
+            break;
+
+        case 'login-post':
+            $authController->login();
+            break;
+
+        case 'register-post':
+            $authController->register();
+            break;
+
+        case 'logout':
+            $authController->logout();
+            break;
+
+        default:
+            http_response_code(404);
     }
